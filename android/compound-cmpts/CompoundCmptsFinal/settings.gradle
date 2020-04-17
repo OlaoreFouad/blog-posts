@@ -1,0 +1,2 @@
+rootProject.name='Compound Cmpts - Final'
+include ':app'
