@@ -75,7 +75,7 @@ class FileDescriptor @JvmOverloads
 
         setUpFileTypeImage()
         }
-    }
+
 
     private fun setFile() {
         // columns to be retrieved from the media content provider
@@ -103,6 +103,7 @@ class FileDescriptor @JvmOverloads
     }
 
 }
+
 
 enum class FileType {
     IMAGE, TEXT, PDF, DOCX, MP4, MP3, UNKNOWN
