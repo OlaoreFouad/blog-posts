@@ -3,4 +3,5 @@
   <string name="lorem">Lorem ipsum dolor sit amet consecteur adsplicingmnfnlifnifndfndkfndifnidffnsjdnfkjanfinkfdkdkanfjkanfakjnkjfnkjdfbkjdfkbfkdfakmejfnjfejfnajfnalDWDFJKSNKFJSFJHASCKJSNCJHKSNCHFAKduihwdjnwjkfsc bsfihfiuqHYIDFWC UDFUIhiduiwfiafyi fsdIDU</string>
   <string name="choose_file_text">Choose File</string>
   <string name="reset_text">Reset</string>
+    <string name="select_file_text">Select File</string>
 </resources>
