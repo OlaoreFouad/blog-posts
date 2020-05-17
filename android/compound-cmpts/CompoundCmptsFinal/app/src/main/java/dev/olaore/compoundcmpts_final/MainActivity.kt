@@ -9,11 +9,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private val REQUEST_FILE_CODE = 1
+    private lateinit var fileDescriptor: FileDescriptor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        fileDescriptor = findViewById(R.id.file_descriptor)
         select_file_button.setOnClickListener {
             selectFile()
         }
@@ -31,6 +33,9 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == REQUEST_FILE_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 val fileUri = data.data
+                fileUri?.let {
+                    fileDescriptor.fileUri = it
+                }
             }
         }
     }

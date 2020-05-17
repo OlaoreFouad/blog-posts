@@ -4,7 +4,9 @@ import android.content.Context
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.android.synthetic.main.file_descriptor.view.*
 import java.io.File
@@ -32,12 +34,26 @@ class FileDescriptor @JvmOverloads
 
         // finally, we set the background of our component
         setBackgroundResource(R.drawable.round_file_descriptor_background)
+        file_info.visibility = View.VISIBLE
 
     }
 
     private fun setUpFileDescriptor() {
         setFile()
         setUpFileType()
+
+        Log.d("FileDescriptor", "File Exists: ${ file?.exists() }, File Name: ${ file?.name } File Path: ${ file?.path }")
+
+        file?.let {
+            file_name.text = it.name
+            file_info.text = """
+                File Name: ${ it.name }
+                Path To File: ${ it.path }
+                Last Modified: ${ it.lastModified() }
+                Size: ${ it.length() }B
+            """.trimIndent()
+        }
+
     }
 
     private fun setUpFileTypeImage() {
@@ -74,7 +90,7 @@ class FileDescriptor @JvmOverloads
         }
 
         setUpFileTypeImage()
-        }
+    }
 
 
     private fun setFile() {
@@ -85,7 +101,6 @@ class FileDescriptor @JvmOverloads
             fileUri!!, columns, null, null, null
         )
 
-
         cursor?.let {
             // move to the first item
             it.moveToFirst()
@@ -95,6 +110,7 @@ class FileDescriptor @JvmOverloads
             val filePath = cursor.getString(dataColumnIndex)
             // close the cursor
             it.close()
+            Log.d("FileDescriptor", "Path: $filePath")
             filePath?.let { path ->
                 file = File(path)
             }
