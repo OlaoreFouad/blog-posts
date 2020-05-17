@@ -44,16 +44,6 @@ class FileDescriptor @JvmOverloads
 
         Log.d("FileDescriptor", "File Exists: ${ file?.exists() }, File Name: ${ file?.name } File Path: ${ file?.path }")
 
-        file?.let {
-            file_name.text = it.name
-            file_info.text = """
-                File Name: ${ it.name }
-                Path To File: ${ it.path }
-                Last Modified: ${ it.lastModified() }
-                Size: ${ it.length() }B
-            """.trimIndent()
-        }
-
     }
 
     private fun setUpFileTypeImage() {
@@ -90,6 +80,15 @@ class FileDescriptor @JvmOverloads
         }
 
         setUpFileTypeImage()
+        file?.let {
+            file_name.text = it.name
+            file_info.text = """
+                File Name: ${ it.name }
+                Path To File: ${ it.path }
+                Last Modified: ${ it.lastModified() }
+                Size: ${ it.length() }B
+            """.trimIndent()
+        }
     }
 
 
