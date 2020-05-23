@@ -10,6 +10,9 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.android.synthetic.main.file_descriptor.view.*
 import java.io.File
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import kotlin.math.absoluteValue
 
 class FileDescriptor @JvmOverloads
     constructor(private val ctx: Context, private val attributeSet: AttributeSet? = null, private val defStyleAttr: Int = 0)
@@ -42,7 +45,37 @@ class FileDescriptor @JvmOverloads
         setFile()
         setUpFileType()
 
-        Log.d("FileDescriptor", "File Exists: ${ file?.exists() }, File Name: ${ file?.name } File Path: ${ file?.path }")
+        file?.let {
+            file_name.text = it.name
+            file_info.text = """
+                File Name: ${ it.name }
+                Path To File: ${ it.path }
+                Last Modified: ${ it.lastModified().format("MMM dd, YYYY hh:mm") }
+                Size: ${ it.length().valueInKb() }KB
+            """.trimIndent()
+        }
+
+        retrieveThumbnail()
+
+    }
+
+    private fun retrieveThumbnail() {
+
+        try {
+
+            when(fileType) {
+                FileType.IMAGE -> ThumbnailGenerator.createImageThumbnail(ctx, fileUri, file_preview_image)
+                FileType.MP4 -> ThumbnailGenerator.createVideoThumbnail(ctx, fileUri, file_preview_image)
+                FileType.DOCX -> file_preview_image.setImageResource(R.drawable.docx)
+                FileType.MP3 -> file_preview_image.setImageResource(R.drawable.mp3)
+                FileType.PDF -> file_preview_image.setImageResource(R.drawable.pdf)
+                FileType.TEXT -> file_preview_image.setImageResource(R.drawable.txt)
+                FileType.UNKNOWN -> file_preview_image.setImageResource(R.drawable.no_file_selected)
+            }
+
+        } catch (e: Exception) {
+            Log.d("FileDescriptor", "Error occured: ${ e.message }")
+        }
 
     }
 
@@ -80,15 +113,6 @@ class FileDescriptor @JvmOverloads
         }
 
         setUpFileTypeImage()
-        file?.let {
-            file_name.text = it.name
-            file_info.text = """
-                File Name: ${ it.name }
-                Path To File: ${ it.path }
-                Last Modified: ${ it.lastModified() }
-                Size: ${ it.length() }B
-            """.trimIndent()
-        }
     }
 
 
@@ -122,4 +146,13 @@ class FileDescriptor @JvmOverloads
 
 enum class FileType {
     IMAGE, TEXT, PDF, DOCX, MP4, MP3, UNKNOWN
+}
+
+fun Long.format(format: String): String {
+    return SimpleDateFormat(format).format(this.absoluteValue)
+}
+
+fun Long.valueInKb(): Double {
+    val kb: Double = this.div(1024).toDouble()
+    return kb
 }
