@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.android.synthetic.main.file_descriptor.view.*
 import java.io.File
@@ -27,17 +28,37 @@ class FileDescriptor @JvmOverloads
     var file: File? = null
     var fileType: FileType? = null
 
+    var showInfoByDefault = false
+    @DrawableRes var viewBackground: Int = R.drawable.round_file_descriptor_background
+
     init {
 
         // get the inflater service from the android system
         val inflater = ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
+        // the array of attributes
+        val attributes = ctx.obtainStyledAttributes(attributeSet, R.styleable.FileDescriptor)
+
+        showInfoByDefault = attributes.getBoolean(R.styleable.FileDescriptor_showInfoByDefault, showInfoByDefault) // can be set to false
+        viewBackground = attributes.getResourceId(R.styleable.FileDescriptor_viewBackground, viewBackground) // can be set to
+        // R.drawable.round_file_descriptor_background
+
+        attributes.recycle()
+
         // inflate the layout into "this" layout
         inflater.inflate(R.layout.file_descriptor, this)
 
         // finally, we set the background of our component
-        setBackgroundResource(R.drawable.round_file_descriptor_background)
-        file_info.visibility = View.VISIBLE
+        setBackgroundResource(viewBackground)
+        file_info.visibility = if (showInfoByDefault) View.VISIBLE else View.GONE
+
+        file_info.setOnClickListener {
+            showInfoByDefault = !showInfoByDefault
+            file_info.visibility = if (showInfoByDefault) View.VISIBLE else View.GONE
+        }
+
+        // TODO: run the app, get the app design in an image and set in the blog post.
+        // TODO: set up sharing in the app too, if a file has not been selected the info and share button should not be visible - invisible
 
     }
 
