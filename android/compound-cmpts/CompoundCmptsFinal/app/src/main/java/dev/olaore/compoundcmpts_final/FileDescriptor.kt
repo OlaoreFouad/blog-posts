@@ -1,12 +1,15 @@
 package dev.olaore.compoundcmpts_final
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.android.synthetic.main.file_descriptor.view.*
@@ -52,16 +55,19 @@ class FileDescriptor @JvmOverloads
         setBackgroundResource(viewBackground)
         file_info.visibility = if (showInfoByDefault) View.VISIBLE else View.GONE
 
-        file_info.setOnClickListener {
+        info_file_image.setOnClickListener {
             showInfoByDefault = !showInfoByDefault
             file_info.visibility = if (showInfoByDefault) View.VISIBLE else View.GONE
         }
+
+        share_file_image.setOnClickListener { shareDescription() }
 
         // TODO: run the app, get the app design in an image and set in the blog post.
         // TODO: set up sharing in the app too, if a file has not been selected the info and share button should not be visible - invisible
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setUpFileDescriptor() {
         setFile()
         setUpFileType()
@@ -98,6 +104,22 @@ class FileDescriptor @JvmOverloads
             Log.d("FileDescriptor", "Error occured: ${ e.message }")
         }
 
+    }
+
+    private fun shareDescription() {
+        file?.let {
+
+            val shareIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, file_info.text)
+                type = "text/plain"
+            }
+            ctx.startActivity(Intent.createChooser(shareIntent, null))
+
+            return
+        }
+
+        Toast.makeText(ctx, "You have to select a File first", Toast.LENGTH_LONG).show()
     }
 
     private fun setUpFileTypeImage() {
