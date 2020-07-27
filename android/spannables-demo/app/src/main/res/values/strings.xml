@@ -1,3 +1,4 @@
 <resources>
   <string name="app_name">Spannables Demo</string>
+    <string name="this_text_is_bold">This text is bold</string>
 </resources>
