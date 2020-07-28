@@ -31,4 +31,22 @@
 		android:textColor="@android:color/black"
 		android:textSize="28sp" />
 
+    <TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:layout_constraintTop_toBottomOf="@id/foreground_and_background_text"
+		android:id="@+id/sizing_text"
+        tools:text="Hey there!"
+		android:textColor="@android:color/black"
+		android:textSize="28sp" />
+
+    <TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:layout_constraintTop_toBottomOf="@id/sizing_text"
+		android:id="@+id/sizing_bigger_text"
+        tools:text="Hey there!"
+		android:textColor="@android:color/black"
+		android:textSize="28sp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

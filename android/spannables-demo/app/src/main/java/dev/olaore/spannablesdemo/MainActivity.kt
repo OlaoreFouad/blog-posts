@@ -6,10 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.BackgroundColorSpan
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
-import android.text.style.TypefaceSpan
+import android.text.style.*
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +14,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var boldText: TextView
     private lateinit var foregroundText: TextView
     private lateinit var foregroundBackgroundText: TextView
+    private lateinit var sizingText: TextView
+    private lateinit var sizingBiggerText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,10 +24,42 @@ class MainActivity : AppCompatActivity() {
         boldText = findViewById(R.id.bold_text)
         foregroundText = findViewById(R.id.foreground_text)
         foregroundBackgroundText = findViewById(R.id.foreground_and_background_text)
+        sizingText = findViewById(R.id.sizing_text)
+        sizingBiggerText = findViewById(R.id.sizing_bigger_text)
 
         setBoldText()
         setForegroundText()
         setForegroundAndBackground()
+        setSizingText()
+        setSizingBiggerText()
+
+    }
+
+    private fun setSizingText() {
+        val text = "This text is smaller than the rest"
+        val sizingSpannableText = SpannableString(text)
+
+        val startIndex = text.indexOf("smaller")
+        val amountOfCharacters = "smaller".length
+
+        sizingSpannableText.setSpan(
+            AbsoluteSizeSpan(20), startIndex, startIndex + amountOfCharacters, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        sizingText.text = sizingSpannableText
+
+    }
+
+    private fun setSizingBiggerText() {
+        val text = "This text is double the size of the rest"
+        val sizingSpannableText = SpannableString(text)
+
+        val startIndex = text.indexOf("double the size")
+        val amountOfCharacters = "double the size".length
+
+        sizingSpannableText.setSpan(
+            RelativeSizeSpan(2f), startIndex, startIndex + amountOfCharacters, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        sizingBiggerText.text = sizingSpannableText
 
     }
 
