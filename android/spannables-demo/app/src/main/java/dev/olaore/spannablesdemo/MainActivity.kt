@@ -43,31 +43,31 @@ class MainActivity : AppCompatActivity() {
         val boldText = "This text is bold"
         val boldStrUnderlineSpannable = SpannableStringBuilder(boldText)
 
-        val boldStartIndex = boldText.indexOf("bold")
-        val amountOfCharactersBold = "bold".length
+        var startIndex = boldText.indexOf("bold")
+        var amountOfCharacters = "bold".length
 
         boldStrUnderlineSpannable.setSpan(
-            StyleSpan(Typeface.BOLD), boldStartIndex, boldStartIndex + amountOfCharactersBold, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            StyleSpan(Typeface.BOLD), startIndex, startIndex + amountOfCharacters, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
         val strikethroughText = " and this is a strikethrough"
         boldStrUnderlineSpannable.append(strikethroughText)
 
-        val strikethroughStartIndex = boldStrUnderlineSpannable.indexOf("strikethrough")
-        val amountOfCharacterstrikethrough = "strikethrough".length
+        startIndex = boldStrUnderlineSpannable.indexOf("strikethrough")
+        amountOfCharacters = "strikethrough".length
 
         boldStrUnderlineSpannable.setSpan(
-            StrikethroughSpan(), strikethroughStartIndex, strikethroughStartIndex + amountOfCharacterstrikethrough, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            StrikethroughSpan(), startIndex, startIndex + amountOfCharacters, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
         val underlineText = " and this is an underlined text"
         boldStrUnderlineSpannable.append(underlineText)
 
-        val underlineStartIndex = boldStrUnderlineSpannable.indexOf("underlined")
-        val amountOfCharacterUnderline = "underlined".length
+        startIndex = boldStrUnderlineSpannable.indexOf("underlined")
+        amountOfCharacters = "underlined".length
 
         boldStrUnderlineSpannable.setSpan(
-            UnderlineSpan(), underlineStartIndex, underlineStartIndex + amountOfCharacterUnderline, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            UnderlineSpan(), startIndex, startIndex + amountOfCharacters, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
         boldStrikethroughUnderlineText.text = boldStrUnderlineSpannable
@@ -123,17 +123,18 @@ class MainActivity : AppCompatActivity() {
         val text = "A part of this text would be set to color red"
         val foregroundSpannableText = SpannableString(text)
 
-        val startIndex = foregroundSpannableText.indexOf("part of this text")
-        val amountOfCharacters = "part of this text".length
-
-        val redStartIndex = foregroundSpannableText.indexOf("red")
-        val redAmountOfCharacters = 3 // length of "red"
+        var startIndex = foregroundSpannableText.indexOf("part of this text")
+        var amountOfCharacters = "part of this text".length
 
         foregroundSpannableText.setSpan(
             ForegroundColorSpan(Color.RED), startIndex, startIndex + amountOfCharacters, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
+
+        startIndex = foregroundSpannableText.indexOf("red")
+        amountOfCharacters = 3 // length of "red"
+
         foregroundSpannableText.setSpan(
-            ForegroundColorSpan(Color.RED), redStartIndex, redStartIndex + redAmountOfCharacters, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            ForegroundColorSpan(Color.RED), startIndex, startIndex + amountOfCharacters, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         foregroundText.text = foregroundSpannableText
 
