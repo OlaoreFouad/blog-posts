@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         foregroundBackgroundText = findViewById(R.id.foreground_and_background_text)
         sizingText = findViewById(R.id.sizing_text)
         sizingBiggerText = findViewById(R.id.sizing_bigger_text)
-        boldStrikethroughUnderlineText = findViewById(R.id.bold_strikethrough_underline_text)
+        boldStrikethroughUnderlineText = findViewById(R.id.builder_text)
 
         setBoldText()
         setForegroundText()
