@@ -1,0 +1,2 @@
+rootProject.name='Lines, Paths and Arcs'
+include ':app'
