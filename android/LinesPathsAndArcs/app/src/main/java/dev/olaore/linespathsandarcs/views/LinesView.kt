@@ -24,7 +24,7 @@ class LinesView @JvmOverloads
         super.onDraw(canvas)
         drawFirstLine(canvas)
         drawSecondLine(canvas)
-    }
+    }   
 
     private fun drawFirstLine(canvas: Canvas?) {
         canvas?.drawLine(50f, 50f, width - 50f, height / 2f, firstLinePaint)
