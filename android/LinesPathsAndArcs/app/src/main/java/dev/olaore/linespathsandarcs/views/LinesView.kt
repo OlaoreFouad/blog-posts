@@ -31,7 +31,7 @@ class LinesView @JvmOverloads
     }
 
     private fun drawSecondLine(canvas: Canvas?) {
-        canvas?.drawLine(50f, height / 2f, width - 20f, 50f, secondLinePaint)
+        canvas?.drawLine(50f, height / 2f, width - 50f, 50f, secondLinePaint)
     }
 
 }
