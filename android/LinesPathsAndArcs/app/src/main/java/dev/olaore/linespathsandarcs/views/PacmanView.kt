@@ -7,12 +7,12 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 
-class CenteredArcView @JvmOverloads
+class PacmanView @JvmOverloads
     constructor(
         private var ctx: Context, private var attributeSet: AttributeSet? = null, private var defStyleAttr: Int = 0
     ): View(ctx, attributeSet, defStyleAttr) {
 
-    private var arcPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    private var bodyPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.YELLOW
     }
 
@@ -20,13 +20,13 @@ class CenteredArcView @JvmOverloads
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        drawArc(canvas)
+        drawBody(canvas)
         drawEye(canvas)
     }
 
-    private fun drawArc(canvas: Canvas?) {
+    private fun drawBody(canvas: Canvas?) {
         canvas?.drawArc(
-            100f, 100f, width - 100f, height / 2f, 0f, 315f, true, arcPaint
+            100f, 100f, width - 100f, height / 2f, 0f, 315f, true, bodyPaint
         )
     }
 
