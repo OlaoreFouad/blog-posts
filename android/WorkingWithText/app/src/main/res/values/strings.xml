@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Working With Text</string>
+    <string name="text_alignment">Align</string>
+    <string name="center_text">Center</string>
+    <string name="left_text">Left</string>
+    <string name="right_text">Right</string>
+    <string name="enter_text_here">Enter text here.</string>
+    <string name="text_size">Text size</string>
+    <string name="text_color">Text color</string>
+    <string name="change_color">Change Color</string>
 </resources>
