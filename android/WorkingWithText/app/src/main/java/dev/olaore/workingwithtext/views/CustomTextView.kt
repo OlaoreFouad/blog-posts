@@ -6,8 +6,12 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
+import androidx.annotation.ColorInt
 import dev.olaore.workingwithtext.toDp
+
+const val DEFAULT_TEXT_SIZE = 24f
 
 class CustomTextView @JvmOverloads constructor(
     private val ctx: Context,
@@ -16,12 +20,22 @@ class CustomTextView @JvmOverloads constructor(
     private val defStyleRes: Int = 0
 ) : View(ctx, attributeSet, defStyleAttr, defStyleRes) {
 
-    private var align = Paint.Align.CENTER
-    private var textSize = 24f
+    enum class CustomTextAlign(val value: Paint.Align) {
+        LEFT(Paint.Align.LEFT),
+        CENTER(Paint.Align.CENTER),
+        RIGHT(Paint.Align.RIGHT)
+    }
+
+    var currentTextColor: Int? = Color.BLACK
+        private set
+    private var currentTextSize: Float = toDp(DEFAULT_TEXT_SIZE)
+    private var currentText: String = ""
+    private var currentTextAlign = CustomTextAlign.CENTER.value
+
     private val textBounds = Rect()
     private val textPaint = Paint().apply {
-        textAlign = this@CustomTextView.align
-        textSize = toDp(textSize)
+        textAlign = Paint.Align.CENTER
+        textSize = toDp(DEFAULT_TEXT_SIZE)
         color = Color.BLACK
         isAntiAlias = true
     }
@@ -39,6 +53,29 @@ class CustomTextView @JvmOverloads constructor(
         strokeWidth = 1.5f
     }
 
+    fun setTextColor(@ColorInt color: Int) {
+        this.currentTextColor = color
+        textPaint.color = color
+        invalidate()
+    }
+
+    fun setTextSize(updatedSize: Int) {
+        this.currentTextSize = toDp(updatedSize.toFloat())
+        textPaint.textSize = this.currentTextSize
+        invalidate()
+    }
+
+    fun setText(text: String) {
+        this.currentText = text
+        invalidate()
+    }
+
+    fun setTextAlignment(alignment: CustomTextAlign) {
+        this.currentTextAlign = alignment.value
+        textPaint.textAlign = this.currentTextAlign
+        invalidate()
+    }
+
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.let { cnvs ->
@@ -49,25 +86,22 @@ class CustomTextView @JvmOverloads constructor(
     }
 
     private fun drawText(canvas: Canvas) {
-        val text = "testing testing..."
-        textPaint.getTextBounds(text, 0, text.length, textBounds)
-        val textHeight = textBounds.height()
-        val textWidth = textBounds.width()
+        textPaint.getTextBounds(this.currentText, 0, this.currentText.length, textBounds)
 
         val textY = height / 2
-        val textX = when (this.align) {
+        val textX = when (textPaint.textAlign) {
             Paint.Align.CENTER -> {
                 (width / 2)
             }
             Paint.Align.LEFT -> {
-                textWidth + 10
+                0
             }
             Paint.Align.RIGHT -> {
-                width - textWidth
+                width
             }
         }
 
-        canvas.drawText(text, textX.toFloat(), textY.toFloat(), textPaint)
+        canvas.drawText(this.currentText, textX.toFloat(), textY.toFloat(), textPaint)
     }
 
     private fun drawBackground(canvas: Canvas) {
