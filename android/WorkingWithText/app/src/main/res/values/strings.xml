@@ -14,7 +14,7 @@
     <string name="strikethrough">Strikethrough</string>
     <string name="text_fill">Fill</string>
     <string name="stroke_text">Stroke</string>
-    <string name="fill_and_stroke_text"><![CDATA[Fill &amp; Stroke]]></string>
+    <string name="fill_and_stroke_text"><![CDATA[Fill & Stroke]]></string>
     <string name="fill_text">Fill</string>
     <string name="monospace_text">Monospace</string>
     <string name="sans_serif_text">Sans Serif</string>
