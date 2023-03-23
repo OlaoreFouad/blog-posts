@@ -12,6 +12,7 @@ import androidx.annotation.ColorInt
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import com.skydoves.colorpickerview.ColorPickerView
+import dev.olaore.workingwithtext.views.CustomTextAlign
 import dev.olaore.workingwithtext.views.CustomTextView
 import dev.olaore.workingwithtext.views.CustomTextView.*
 

@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
@@ -13,18 +14,34 @@ import dev.olaore.workingwithtext.toDp
 
 const val DEFAULT_TEXT_SIZE = 24f
 
+enum class CustomTextAlign(val value: Paint.Align) {
+    LEFT(Paint.Align.LEFT),
+    CENTER(Paint.Align.CENTER),
+    RIGHT(Paint.Align.RIGHT)
+}
+
+enum class FormattingStyle {
+    BOLD, UNDERLINED, STRIKETHROUGH,
+}
+
+enum class TextStyle(val value: Paint.Style) {
+    FILL(Paint.Style.FILL),
+    STROKE(Paint.Style.STROKE),
+    FILL_AND_STROKE(Paint.Style.FILL_AND_STROKE),
+}
+
+enum class TextFont(val value: Typeface) {
+    SERIF(Typeface.SERIF),
+    SANS_SERIF(Typeface.SANS_SERIF),
+    MONOSPACE(Typeface.MONOSPACE),
+}
+
 class CustomTextView @JvmOverloads constructor(
     private val ctx: Context,
     private val attributeSet: AttributeSet? = null,
     private val defStyleAttr: Int = 0,
     private val defStyleRes: Int = 0
 ) : View(ctx, attributeSet, defStyleAttr, defStyleRes) {
-
-    enum class CustomTextAlign(val value: Paint.Align) {
-        LEFT(Paint.Align.LEFT),
-        CENTER(Paint.Align.CENTER),
-        RIGHT(Paint.Align.RIGHT)
-    }
 
     var currentTextColor: Int? = Color.BLACK
         private set
@@ -73,6 +90,37 @@ class CustomTextView @JvmOverloads constructor(
     fun setTextAlignment(alignment: CustomTextAlign) {
         this.currentTextAlign = alignment.value
         textPaint.textAlign = this.currentTextAlign
+        invalidate()
+    }
+
+    fun setTextSpacing(spacing: Int) {
+        textPaint.letterSpacing = spacing.toFloat()
+        invalidate()
+    }
+
+    fun setTextFormattingStyle(style: FormattingStyle, isChecked: Boolean) {
+        when (style) {
+            FormattingStyle.BOLD -> {
+                textPaint.isFakeBoldText = isChecked
+            }
+            FormattingStyle.UNDERLINED -> {
+                textPaint.isUnderlineText = isChecked
+            }
+            FormattingStyle.STRIKETHROUGH -> {
+                textPaint.isStrikeThruText = isChecked
+            }
+        }
+
+        invalidate()
+    }
+
+    fun setTextStyle(style: TextStyle) {
+        textPaint.style = style.value
+        invalidate()
+    }
+
+    fun setTextFont(textFont: TextFont) {
+        textPaint.typeface = textFont.value
         invalidate()
     }
 
