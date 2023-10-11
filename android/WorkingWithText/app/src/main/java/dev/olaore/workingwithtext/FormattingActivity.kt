@@ -17,7 +17,7 @@ class FormattingActivity : AppCompatActivity() {
 
     private lateinit var spacingSeekbar: SeekBar
 
-    // formatting checboxes.
+    // formatting checkboxes.
     private lateinit var boldCheckbox: CheckBox
     private lateinit var underlineCheckbox: CheckBox
     private lateinit var strikethroughCheckbox: CheckBox
